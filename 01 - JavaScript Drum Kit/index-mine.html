@@ -58,9 +58,38 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+  function removeTransition(e) {
+    if(e.propertyName != 'transform') return;
+    this.classList.remove('playing');
+  }
+
+  function playSound(e) {
+    var audio = document.body.querySelector(`audio[data-key='${e.keyCode}']`)
+    var key = document.body.querySelector(`.key[data-key='${e.keyCode}']`)
+    if(!audio){ return; }    
+    audio.currentTime = 0;
+    audio.play();
+    key.classList.add('playing');
+  }
+
+  const keys = document.querySelectorAll('.key');
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+  window.addEventListener("keydown", playSound);
 
 </script>
 
 
 </body>
 </html>
+
+<!-- 
+  REFLECTION: 
+  I _really_ wanted to be able to do day 1 on my own, but had never worked with audio elements or keyCodes
+  before.  I tried to figure out solutions and paused the video at different times to try to use hints
+  to figure it out before watching the given solution.  
+  
+  This exercise made me realize how dependent I am on libraries and frameworks (like jQuery).  
+  This was a helpful first exercise to reinforce vanilla JS and I'm looking forward to the rest
+  of the Javascript30.  A humbling day one.  
+-->

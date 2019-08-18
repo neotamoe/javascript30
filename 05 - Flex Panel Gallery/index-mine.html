@@ -26,6 +26,8 @@
     .panels {
       min-height: 100vh;
       overflow: hidden;
+      display: flex;
+      flex-direction: row;
     }
 
     .panel {
@@ -43,6 +45,9 @@
       font-size: 20px;
       background-size: cover;
       background-position: center;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
 
     .panel1 { background-image:url(https://source.unsplash.com/gYl-UtwNg_I/1500x1500); }
@@ -56,6 +61,21 @@
       margin: 0;
       width: 100%;
       transition: transform 0.5s;
+      /* flex is shorthand for flex-grow, flex-shrink, flex-basis */
+      flex: 1 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      /* border was useful in seeing what was going on */
+      /* border: 1px solid red; */
+    }
+
+    .panel > *:first-child {
+      transform: translateY(-100%)
+    }
+
+    .panel > *:last-child {
+      transform: translateY(200%)
     }
 
     .panel p {
@@ -63,41 +83,54 @@
       font-family: 'Amatic SC', cursive;
       text-shadow: 0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
       font-size: 2em;
+      flex-grow: 1;
+      justify-content: center;
+      align-content: center;
     }
     
     .panel p:nth-child(2) {
       font-size: 4em;
+      flex-grow: 2;
     }
 
     .panel.open {
       font-size: 40px;
+      flex: 5;
+    }
+
+    .panel.open > *:first-child {
+      transform: translateY(0)
+    }
+
+    .panel.open > *:last-child {
+      transform: translateY(0)
     }
 
   </style>
 
 
   <div class="panels">
-    <div class="panel panel1">
+    <div class="panel panel1" id="panel1" onmouseover="expand('panel1')" onmouseout="contract('panel1')">
       <p>Hey</p>
       <p>Let's</p>
       <p>Dance</p>
     </div>
-    <div class="panel panel2">
+    <div class="panel panel2" id="panel2" onmouseover="expand('panel2')" onmouseout="contract('panel2')">
       <p>Give</p>
       <p>Take</p>
       <p>Receive</p>
     </div>
-    <div class="panel panel3">
+    <div class="panel panel3" id="panel3" onmouseover="expand('panel3')" onmouseout="contract('panel3')">
       <p>Experience</p>
       <p>It</p>
       <p>Today</p>
     </div>
-    <div class="panel panel4">
+    <div class="panel panel4" id="panel4" onmouseover="expand('panel4')" onmouseout="contract('panel4')">
       <p>Give</p>
       <p>All</p>
       <p>You can</p>
     </div>
-    <div class="panel panel5">
+    <div class="panel panel5" id="panel5" onmouseover="expand('panel5')" onmouseout="contract('panel5')">
       <p>Life</p>
       <p>In</p>
       <p>Motion</p>
@@ -105,10 +138,21 @@
   </div>
 
   <script>
-
+    function expand(id) {
+      document.getElementById(id).classList.add('open');
+    }
+    function contract(id) {
+      document.getElementById(id).classList.remove('open');
+    }
   </script>
 
-
+<!-- 
+  NOTE: my transitions are not exactly same as instructors so do not 100% match behavior.
+  see index-finished.html for instructor code 
+  My solution is too simplistic and is overly dependent on element attributes so is not as flexible of a solution
+  The transitions are also not as elegant due to differences in implementation 
+  (**see instructor use of open-active class and event listener for transitionend)
+-->
 
 </body>
 </html>

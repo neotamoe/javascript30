@@ -11,6 +11,18 @@
   // http://www.williammalone.com/articles/create-html5-canvas-javascript-drawing-app/
   const canvas = document.getElementById('draw');
   const context = canvas.getContext("2d");
+  var clickX = new Array();
+  var clickY = new Array();
+  var clickDrag = new Array();
+  var paint;
+  let hue = 0;
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  context.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+  context.lineWidth = 50;
+  context.lineJoin = "round";
+  context.lineCap = "round"
+
   canvas.addEventListener('mousedown', function(e) {
     var mouseX = e.pageX - this.offsetLeft;
     var mouseY = e.pageY - this.offsetTop;
@@ -32,10 +44,7 @@
     paint = false;
   });
 
-  var clickX = new Array();
-  var clickY = new Array();
-  var clickDrag = new Array();
-  var paint;
+
 
   function addClick(x, y, dragging) {
     clickX.push(x);
@@ -45,11 +54,7 @@
 
   function redraw(){
     context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
-    
-    context.strokeStyle = "#df4b26";
-    context.lineJoin = "round";
-    context.lineWidth = 10;
-        
+
     for(var i=0; i < clickX.length; i++) {		
       context.beginPath();
       if(clickDrag[i] && i){
@@ -67,10 +72,6 @@
 <style>
   html, body {
     margin: 0;
-  }
-
-  #draw {
-    border: 5px solid blue;
   }
 </style>
 

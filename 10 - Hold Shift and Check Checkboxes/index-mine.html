@@ -96,6 +96,16 @@
   </div>
 
 <script>
+  var items = document.querySelectorAll('.item');
+  items.forEach((item) => {
+    item.addEventListener('click', (e) => {
+      console.log(e.target.value)
+      console.log(e)
+      if(e.shiftKey){
+        console.log("now figure out how to click the others!")
+      }
+    })
+  })
 </script>
 </body>
 </html>

@@ -101,10 +101,8 @@
   let lastChecked = null;
   items.forEach((item, index) => {
     item.addEventListener('click', (e) => {
-      console.log(`EACH CLICK --> index: ${index} and e.target: ${e.target} and lastChecked is currently: ${lastChecked}`);
+      // console.log(`EACH CLICK --> index: ${index} and e.target: ${e.target} and lastChecked is currently: ${lastChecked}`);
       if(e.shiftKey && lastChecked){
-        console.log("now figure out how to click the others!")
-        console.log(`lastChecked with shiftKey: ${lastChecked}`)
         const min = lastChecked < index ? lastChecked : index;
         const max = lastChecked > index ? lastChecked : index;
         for(let i=min; i<max+1; i++){
@@ -113,8 +111,9 @@
       }
       if(items[index].checked==true){
         lastChecked = index;
-        console.log(lastChecked)
-      }
+      } else {
+        lastChecked = null;
+    }
     })
   })
 </script>

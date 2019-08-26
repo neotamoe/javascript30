@@ -6,13 +6,16 @@ const volumeSlider = document.querySelector("input[name='volume']")
 const playbackRateSlider = document.querySelector("input[name='playbackRate']")
 
 function playPause() { 
-    if (theVideo.paused) {
-        theVideo.play(); 
-    } 
-    else {
-        theVideo.pause(); 
-    }
+    const playOrPause = theVideo.paused ? 'play' : 'pause';
+    theVideo[playOrPause]();
 } 
+
+function updatePlayPauseButton() {
+    const pause = "\u258C\u258C"
+    const icon = this.paused ? "►" : pause;
+    playButton.textContent = icon;
+
+}
 
 function fastForward() {
     theVideo.currentTime += 25;
@@ -32,6 +35,8 @@ function adjustPlaybackRate() {
 
 
 theVideo.addEventListener("click", playPause);
+theVideo.addEventListener("play", updatePlayPauseButton);
+theVideo.addEventListener("pause", updatePlayPauseButton);
 playButton.addEventListener("click", playPause);
 fastForwardButton.addEventListener("click", fastForward);
 rewindButton.addEventListener("click", rewind);

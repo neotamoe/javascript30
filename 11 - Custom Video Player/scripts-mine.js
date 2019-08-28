@@ -6,6 +6,7 @@ const volumeSlider = document.querySelector("input[name='volume']")
 const playbackRateSlider = document.querySelector("input[name='playbackRate']")
 const progressBar = document.querySelector(".progress__filled")
 const progress = document.querySelector(".progress")
+const fullscreen = document.querySelector(".full-screen")
 
 function playPause() { 
     const playOrPause = theVideo.paused ? 'play' : 'pause';
@@ -41,11 +42,26 @@ function handleProgress() {
 }
 
 function scrub(e){
-    console.log('progress bar clicked')
+    // console.log('progress bar clicked')
     // get where on bar is clicked and divide by width of bar to get %
     const scrubTime = (e.offsetX / progress.offsetWidth) * theVideo.duration;
     theVideo.currentTime = scrubTime;
 }
+
+function openFullScreen() {
+    // interestingly, this puts the video to fullscreen, but loses all styling
+    // https://www.w3schools.com/howto/howto_js_fullscreen.asp
+    if (theVideo.requestFullscreen) {
+        theVideo.requestFullscreen();
+    } else if (theVideo.mozRequestFullScreen) { /* Firefox */
+        theVideo.mozRequestFullScreen();
+    } else if (theVideo.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+        theVideo.webkitRequestFullscreen();
+    } else if (theVideo.msRequestFullscreen) { /* IE/Edge */
+        theVideo.msRequestFullscreen();
+    }
+}
+
 
 theVideo.addEventListener("click", playPause);
 theVideo.addEventListener("play", updatePlayPauseButton);
@@ -61,3 +77,4 @@ progress.addEventListener("click", scrub);
 progress.addEventListener("mousemove", (e) => mousedown && scrub(e));
 progress.addEventListener("mousedown", () => mousedown = true);
 progress.addEventListener("mouseup", () => mousedown = false);
+fullscreen.addEventListener("click", openFullScreen);

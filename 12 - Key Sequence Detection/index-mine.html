@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Key Detection</title>
+  <script type="text/javascript" src="http://www.cornify.com/js/cornify.js"></script>
+</head>
+<body>
+<script>
+  let pressed = [];
+  let matchIndex = -1;
+  const konami = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight","ArrowLeft", "ArrowRight", "e", "a", "Enter"]
+  window.addEventListener("keyup", (e) => {
+    // up up down down left right left right e a enter
+    if(e.key == konami[matchIndex+1]){
+      pressed.push(e.key)
+      matchIndex += 1;
+    } else {
+      pressed = [];
+      if(e.key=="ArrowUp"){
+        pressed.push(e.key);
+        matchIndex = 0;
+      } else {
+        matchIndex = -1;
+      }
+    }
+    if(JSON.stringify(pressed) == JSON.stringify(konami)){
+      cornify_add();
+    }
+  });
+</script>
+</body>
+</html>

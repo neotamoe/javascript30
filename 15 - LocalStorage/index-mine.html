@@ -34,7 +34,15 @@
   }
   items.forEach(item => {
     const li = document.createElement('li');
-    li.textContent = item;
+    // li.textContent = item;
+    var x = document.createElement("INPUT");
+    x.setAttribute("type", "checkbox");
+    x.setAttribute("id", item);
+    var label = document.createElement('label');
+    label.htmlFor = item;
+    label.textContent = item;
+    li.appendChild(x);
+    li.appendChild(label);
     itemsList.appendChild(li)
   })
 

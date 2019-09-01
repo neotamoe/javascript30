@@ -29,9 +29,10 @@
   const addItems = document.querySelector('.add-items');
   const itemsList = document.querySelector('.plates');
   const items = JSON.parse(localStorage.getItem('items'))
+  while (itemsList.firstChild) {
+    itemsList.removeChild(itemsList.firstChild)
+  }
   items.forEach(item => {
-    // TODO: need to delete "loading tapas..." before appending
-    console.log("appending item: " + item);
     const li = document.createElement('li');
     li.textContent = item;
     itemsList.appendChild(li)
@@ -40,9 +41,12 @@
   function addItem(e) {
     e.preventDefault();
     items.push(e.target[0].value);
-    console.log(`items in addItem: ${items}`);
     localStorage.setItem('items', JSON.stringify(items))
-    // need to delete all existing li before readding list
+    // delete all existing li before re-adding list so list isn't duplicated
+    while (itemsList.firstChild) {
+      itemsList.removeChild(itemsList.firstChild)
+    }
+    // then add back to list
     items.forEach(item => {
       const li = document.createElement('li');
       li.textContent = item;

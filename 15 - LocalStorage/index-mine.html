@@ -28,18 +28,24 @@
 <script>
   const addItems = document.querySelector('.add-items');
   const itemsList = document.querySelector('.plates');
-  const items = JSON.parse(localStorage.getItem('items')) || [];
+  let items = JSON.parse(localStorage.getItem('items')) || [];
+
   // populate list on page load
   createList();
 
   function addItem(e) {
     e.preventDefault();
-    items.push(e.target[0].value);
+    const itemToAdd = {
+      text: e.target[0].value,
+      done: false
+    }
+    items.push(itemToAdd);
     localStorage.setItem('items', JSON.stringify(items))
     createList();
     e.target[0].value = "";
   }
   addItems.addEventListener("submit", addItem)
+  itemsList.addEventListener("click", toggleDone);
 
   function createList(){
     // delete all existing li before re-adding list so list isn't duplicated
@@ -47,18 +53,34 @@
       itemsList.removeChild(itemsList.firstChild)
     }
     // then add back to list
-    items.forEach(item => {
+    items.map((item, i) => {
       const li = document.createElement('li');
       var x = document.createElement("INPUT");
       x.setAttribute("type", "checkbox");
-      x.setAttribute("id", item);
+      x.setAttribute("id", item.text);
+      x.setAttribute("data-index", i);
+      if(item.done) {
+        console.log("yup, item.done")
+        x.setAttribute("checked", true)
+      } 
       var label = document.createElement('label');
-      label.htmlFor = item;
-      label.textContent = item;
+      label.htmlFor = item.text;
+      label.textContent = item.text;
       li.appendChild(x);
       li.appendChild(label);
       itemsList.appendChild(li)
     });
+  }
+
+  function toggleDone(e){
+    // event listener is on .plates which exists at page load.
+    // then use event delegation to check for what you need (clicking on an input and not any other child of .plates)
+    if (!e.target.matches('input')) return;
+    const element = e.target;
+    const index = element.dataset.index;
+    items[index].done = !items[index].done;
+    localStorage.setItem('items', JSON.stringify(items))
+    createList();
   }
 </script>
 

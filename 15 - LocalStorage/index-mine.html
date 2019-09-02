@@ -28,28 +28,20 @@
 <script>
   const addItems = document.querySelector('.add-items');
   const itemsList = document.querySelector('.plates');
-  const items = JSON.parse(localStorage.getItem('items'))
-  while (itemsList.firstChild) {
-    itemsList.removeChild(itemsList.firstChild)
-  }
-  items.forEach(item => {
-    const li = document.createElement('li');
-    // li.textContent = item;
-    var x = document.createElement("INPUT");
-    x.setAttribute("type", "checkbox");
-    x.setAttribute("id", item);
-    var label = document.createElement('label');
-    label.htmlFor = item;
-    label.textContent = item;
-    li.appendChild(x);
-    li.appendChild(label);
-    itemsList.appendChild(li)
-  })
+  const items = JSON.parse(localStorage.getItem('items'));
+  // populate list on page load
+  createList();
 
   function addItem(e) {
     e.preventDefault();
     items.push(e.target[0].value);
     localStorage.setItem('items', JSON.stringify(items))
+    createList();
+    e.target[0].value = "";
+  }
+  addItems.addEventListener("submit", addItem)
+
+  function createList(){
     // delete all existing li before re-adding list so list isn't duplicated
     while (itemsList.firstChild) {
       itemsList.removeChild(itemsList.firstChild)
@@ -57,14 +49,17 @@
     // then add back to list
     items.forEach(item => {
       const li = document.createElement('li');
-      li.textContent = item;
+      var x = document.createElement("INPUT");
+      x.setAttribute("type", "checkbox");
+      x.setAttribute("id", item);
+      var label = document.createElement('label');
+      label.htmlFor = item;
+      label.textContent = item;
+      li.appendChild(x);
+      li.appendChild(label);
       itemsList.appendChild(li)
     });
-
-    e.target[0].value = "";
   }
-  addItems.addEventListener("submit", addItem)
-
 </script>
 
 

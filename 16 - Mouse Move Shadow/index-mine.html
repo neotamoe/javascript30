@@ -41,24 +41,15 @@
   woah.addEventListener("mousemove", shadowMove);
 
   function shadowMove(e){
-    console.log(`X: ${e.clientX}, Y: ${e.clientY}`)
-    console.log(`height: ${innerHeight}, width: ${innerWidth}`)
-    if(e.clientY > innerHeight/2){
-      console.log("BOTTOM!!!!")
-    } else if(e.clientY < innerHeight/2){
-      console.log("TOP!!!!!")
-    } 
-
-    if(e.clientX > innerWidth/2){
-      console.log("RIGHT! ---->")
-    } else if (e.clientX < innerWidth/2){
-      console.log("<------ LEFT! ")
-    }
-    // console.log(`offsetX: ${e.offsetX}, offsetY: ${e.offsetY}`)
-    // console.log(`offsetLeft: ${e.target.offsetLeft}, offsetTop: ${e.target.offsetTop}`)
+    const midpointX = innerWidth/2;
+    const midpointY = innerHeight/2;
+    const Xval = e.clientX - midpointX;
+    const Yval = e.clientY - midpointY;
     const h1 = document.querySelector('h1');
-    // TODO: set this dynamically somehow
-    h1.style.textShadow = "25px 25px rgba(0,0,0,1)"
+    const movementSize = .15;
+    const hoffset = Xval * movementSize;
+    const voffset = Yval * movementSize;
+    h1.style.textShadow = `${hoffset}px ${voffset}px rgba(0,0,0,1)`
   }
 </script>
 </body>

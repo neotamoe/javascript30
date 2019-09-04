@@ -35,6 +35,22 @@
   </style>
 
 <script>
+  const woah = document.querySelector(".hero");
+
+  woah.addEventListener("mousemove", shadowMove);
+
+  function shadowMove(e){
+    console.log("innerWidth: " + window.innerWidth + " innerHeight: " + window.innerHeight)
+    console.log(e)
+    console.log(e.target)
+    // console.log(`X: ${e.pageX}, Y: ${e.pageY}`)
+    // console.log(`offsetX: ${e.offsetX}, offsetY: ${e.offsetY}`)
+    // console.log(`offsetLeft: ${e.target.offsetLeft}, offsetTop: ${e.target.offsetTop}`)
+    // console.log(`movementX: ${e.movementX}, movementY: ${e.movementY}`)
+    const h1 = document.querySelector('h1');
+    // TODO: set this dynamically somehow
+    h1.style.textShadow = "25px 25px rgba(0,0,0,1)"
+  }
 </script>
 </body>
 </html>

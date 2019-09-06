@@ -51,17 +51,9 @@ const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'N
 bands.sort((a,b) => {
   var bandA = a.toUpperCase().replace("THE ","").replace("A ","").replace("AN ",""); // ignore upper and lowercase
   var bandB = b.toUpperCase().replace("THE ","").replace("A ","").replace("AN ",""); // ignore upper and lowercase
-  if (bandA < bandB) {
-    return -1;
-  }
-  if (bandA > bandB) {
-    return 1;
-  }
+  return bandA < bandB ? -1 : 1;
+});
 
-  // names must be equal
-  return 0;
-})
-// console.log(bands)
 bands.forEach(band => createBandLi(bandUL, band))
 
 function createBandLi(bandUL, band){

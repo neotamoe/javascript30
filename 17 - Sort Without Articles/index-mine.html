@@ -46,8 +46,29 @@
   <ul id="bands"></ul>
 
 <script>
+const bandUL = document.querySelector("#bands");  
 const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
+bands.sort((a,b) => {
+  var bandA = a.toUpperCase().replace("THE ","").replace("A ","").replace("AN ",""); // ignore upper and lowercase
+  var bandB = b.toUpperCase().replace("THE ","").replace("A ","").replace("AN ",""); // ignore upper and lowercase
+  if (bandA < bandB) {
+    return -1;
+  }
+  if (bandA > bandB) {
+    return 1;
+  }
 
+  // names must be equal
+  return 0;
+})
+// console.log(bands)
+bands.forEach(band => createBandLi(bandUL, band))
+
+function createBandLi(bandUL, band){
+  var li = document.createElement("li");
+  li.appendChild(document.createTextNode(band));
+  bandUL.appendChild(li);
+}
 
 </script>
 

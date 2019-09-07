@@ -182,6 +182,43 @@
     </li>
   </ul>
 <script>
+  const times = document.querySelectorAll('li[data-time]');
+  // console.log(times)
+  const timesArray = []
+  times.forEach(it => timesArray.push(it.dataset.time))
+  // console.log(timesArray)
+  const total = timesArray.reduce((acc, current) => addConvertString(acc, current))
+  // console.log(total)
+
+  function addConvertString(timeString, timeString2){
+    const split = timeString.split(':');
+    const minute = parseInt(split[0]);
+    const second = parseInt(split[1]);
+    const split2 = timeString2.split(':');
+    const minute2 = parseInt(split2[0]);
+    const second2 = parseInt(split2[1]);
+    let newSeconds = second + second2;
+    let newMinutes = minute + minute2;
+    let remainingSeconds = newSeconds % 60;
+    let additionalMinutes
+    additionalMinutes = (newSeconds - remainingSeconds) / 60;
+    // console.log(`in if: ${newSeconds}, ${remainingSeconds}, ${additionalMinutes}`)
+    newMinutes += additionalMinutes;
+    newSeconds = remainingSeconds;
+    // console.log("newMinutes: "+newMinutes)
+    // console.log("newSeconds: "+newSeconds)
+    return `${newMinutes}:${newSeconds}`
+  }
+
+  const finalSeconds = total.split(":")[1]
+  // console.log("finalSeconds: "+finalSeconds)
+  const finalMinutes = parseInt(total.split(":")[0]) % 60;
+  // console.log("finalMinutes: "+finalMinutes)
+  const finalHours = (parseInt(total.split(":")[0]) - finalMinutes) / 60;
+  // console.log("finalHours:"+finalHours)
+  const finalTime = finalHours + ":"+finalMinutes+":"+finalSeconds;
+  console.log(finalTime);
+
 </script>
 </body>
 </html>

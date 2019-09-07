@@ -28,6 +28,7 @@ html {
 .photo {
   width: 100%;
   float: left;
+  border: 1px solid green;
 }
 
 .player {
@@ -35,6 +36,7 @@ html {
   top: 20px;
   right: 20px;
   width:200px;
+  border: solid 1px red;
 }
 
 /*

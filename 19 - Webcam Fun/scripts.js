@@ -6,11 +6,12 @@ const snap = document.querySelector('.snap');
 
 let photoRoll = [];
 function takePhoto(){
+    snap.play();
     console.log("TAKE PHOTO!");
     const snapped = ctx.drawImage(video, 0,0, canvas.width, canvas.height);
     var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  // here is the most important part because if you dont replace you will get a DOM 18 exception.
 
-    photoRoll.push(image)
+    photoRoll.unshift(image)
     console.log(photoRoll)
 
     strip.innerHTML = photoRoll

@@ -13,20 +13,30 @@ function takePhoto(){
     photoRoll.push(image)
     console.log(photoRoll)
 
-    strip.innerHTML =
-    photoRoll
-      .map(photo => `<img src="${photo}" />`)
-      .join('');
-
+    strip.innerHTML = photoRoll
+        .map(photo => `<img src="${photo}" />`)
+        .join('');
 }
 
-if (navigator.mediaDevices.getUserMedia) {
-    navigator.mediaDevices.getUserMedia({ video: true })
+function startVideo() {
+    navigator.mediaDevices.getUserMedia({ video: true, audio: false })
     .then(function (stream) {
         video.srcObject = stream;
     })
-    .catch(function (err0r) {
-        console.log("Something went wrong!");
+    .catch(function (error) {
+        console.log("Uh-oh!  Something went wrong!");
     });
+};
+
+function paintToCanvas(){
+    window.requestAnimationFrame(paintToCanvas)
+
+    const width = video.videoWidth;
+    const height = video.videoHeight;
+    canvas.width = width;
+    canvas.height = height;
+    ctx.drawImage(video, 0,0, width, height);
 }
 
+startVideo();
+paintToCanvas();
